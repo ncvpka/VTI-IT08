@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Máy tính bỏ túi</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+</head>
+ <style>
+    body{
+    font-family: Roboto;
+}
+#may_tinh{
+    width:320px;
+    height:520px;    
+    margin:0 auto;
+    position:relative; 
+}
+#ket_qua_cu{
+    text-align: right;
+    height:20px;
+    margin:0 20px;   
+    font-size:15px;
+}
+#xuat_ket_qua {
+    text-align: right;
+    height:60px;
+    margin: 10px 20px;
+    font-size: 30px;
+}
+.he_thong, .con_so, .trong {
+    width:50px;
+    height:50px;
+    margin: 15px; 
+    float:left;
+    font-weight:bold;
+    font-size:16px;
+}
+
+ </style>
+<body>
+
+    <div id="may_tinh">
+        <div id="ket_qua">
+            <div id="ket_qua_cu">
+                <p id="gia_tri_cu"></p>
+            </div>
+            <div id="xuat_ket_qua">
+                <p id="gia_tri_xuat"></p>
+            </div>
+        </div>
+        <div id="ban_phim">
+            <button class="he_thong" id="xoa_tat_ca">C</button>
+            <button class="he_thong" id="xoa_tung_so">CE</button>
+            <button class="he_thong" id="%">%</button>
+            <button class="he_thong" id="/">&#247;</button>
+            <button class="con_so" id="7">7</button>
+            <button class="con_so" id="8">8</button>
+            <button class="con_so" id="9">9</button>
+            <button class="he_thong" id="*">&times;</button>
+            <button class="con_so" id="4">4</button>
+            <button class="con_so" id="5">5</button>
+            <button class="con_so" id="6">6</button>
+            <button class="he_thong" id="-">-</button>
+            <button class="con_so" id="1">1</button>
+            <button class="con_so" id="2">2</button>
+            <button class="con_so" id="3">3</button>
+            <button class="he_thong" id="+">+</button>
+            <button class="trong" id="trong"></button>
+            <button class="con_so" id="0">0</button>
+            <button class="trong" id="trong"></button>
+            <button class="he_thong" id="=">=</button>
+        </div>
+    </div>
+    <script>
+        function Lay_gia_tri_cu() {
+            return document.getElementById("gia_tri_cu").innerText;
+        }
+
+        function In_gia_tri_cu(so) {
+            document.getElementById("gia_tri_cu").innerText = so;
+        }
+
+
+        function Lay_ket_qua() {
+            return document.getElementById("gia_tri_xuat").innerText;
+        }
+
+        function In_Ket_qua(so) {
+            if (so == "") {
+                document.getElementById("gia_tri_xuat").innerText = so;
+            } else {
+                document.getElementById("gia_tri_xuat").innerText = Dinh_dang_chuoi(so);
+            }
+
+        }
+
+        function Dinh_dang_chuoi(so) {
+            if (so == "-") {
+                return "";
+            }
+            var n = Number(so);
+            var gia_tri = n.toLocaleString("en");
+            return gia_tri;
+        }
+
+        function Xoa_Dinh_dang_chuoi(so) {
+            return Number(so.replace(/,/g, ''))
+        }
+
+
+        var he_thong = document.getElementsByClassName('he_thong');
+        for (var i = 0; i < he_thong.length; i++) {
+            he_thong[i].addEventListener('click', function () {
+                if (this.id == "xoa_tat_ca") {
+                    In_Ket_qua("");
+                    In_gia_tri_cu("");
+                } else if (this.id == "xoa_tung_so") {
+                    let ket_qua = Xoa_Dinh_dang_chuoi(Lay_ket_qua()).toString();
+                    if (ket_qua) {
+                        ket_qua = ket_qua.substr(0, ket_qua.length - 1)
+                        In_Ket_qua(ket_qua)
+                    }
+                } else {
+                    var ket_qua = Lay_ket_qua();
+                    var ket_qua_cu = Lay_gia_tri_cu();
+                    if (ket_qua != "") {
+                        ket_qua = Xoa_Dinh_dang_chuoi(ket_qua);
+                        ket_qua_cu = ket_qua_cu + ket_qua;
+                        if (this.id == "=") {
+                            var ket_qua_cuoi = eval(ket_qua_cu);
+                            In_Ket_qua(ket_qua_cuoi)
+                            In_gia_tri_cu("")
+                        } else {
+                            ket_qua_cu = ket_qua_cu + this.id;
+                            In_gia_tri_cu(ket_qua_cu)
+                            In_Ket_qua("")
+                        }
+                    }
+                }
+            })
+        }
+
+        var con_so = document.getElementsByClassName('con_so');
+        for (var i = 0; i < con_so.length; i++) {
+            con_so[i].addEventListener('click', function () {
+                var ket_qua = Xoa_Dinh_dang_chuoi(Lay_ket_qua())
+                if (ket_qua != NaN) {
+                    ket_qua = ket_qua + this.id;
+                    In_Ket_qua(ket_qua)
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
