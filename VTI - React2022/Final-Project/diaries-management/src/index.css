@@ -1,0 +1,44 @@
+html {
+  min-height: 100%;
+}
+
+body {
+  margin:0;
+  padding:0;
+  font-family: sans-serif;
+  background-image: linear-gradient(purple, pink);
+  background-size: 100%;
+  background-position: bottom;
+  background-color: #95e8f3;
+  min-height: 100%;
+
+}
+
+form {
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+form button,
+form h5 {
+  margin: 1rem 0;
+}
+
+input[type="text"]:not(.browser-default):focus:not([readonly]),
+input[type="email"]:not(.browser-default):focus:not([readonly]),
+input[type="password"]:not(.browser-default):focus:not([readonly]) {
+  border-color: #ec407a;
+  box-shadow: none;
+}
+
+i {
+  cursor: pointer;
+}
+
+.edit-icon:hover {
+  color: green !important;
+}
+
+.entries-btn:hover {
+  background-color: #424242 !important;
+}
